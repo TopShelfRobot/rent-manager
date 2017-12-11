@@ -139,45 +139,12 @@ describe("Units", () => {
       }).timeout(5000)
     })
 
-    describe.only("searching on features", () => {
-      it("finds units within a rent range", async () => {
-        const now = format(new Date());
-        const amount = 500;
-        const pageSize = 50;
-        const embeds = ['MarketRent'];
-        const filters = [
-          {
-            model: 'MarketRent',
-            filters: [
-              {prop: 'ToDate', op: 'gen', value: now},
-              {prop: 'Amount', op: 'ge', value: amount}
-            ]
-          }
-        ]
-
-        const units = await rm.Units.search({pageSize, filters, embeds})
-
-        const marketRents = [].concat.apply([], units.map(u => u.MarketRent))
-        marketRents.forEach(r => {
-          assert.isAtLeast(r.Amount, amount)
-        })
-      })
-      it("finds noly unavailable units", async () => {
-        const now = format(new Date())
-        const pageSize = 3;
-        // const filters = [{prop: 'Property.ShortName', op: 'eq', value: '2725browns'}];
-        const filters = [{prop: 'Name', op: 'eq', value: '2025 Brownsboro #112'}];
-        // const filters = [{prop: 'IsVacantAsOf', op: 'eq', value: now}];
-        const embeds = ['UnitStatuses', 'MarketingData', 'Images'];
-        const units = await rm.Units.search({pageSize, filters, embeds});
-
-        console.log(units[0])
-        
-      }).timeout(5000)
-
-      it("finds only available units", async () => {
-
-      })
+    it("fluent UNIT", () => {
+      rm.Units.find()
+        .filter('field1', 'eq', 'value1')
+        .filter('field2', 'lt', 4)
+        .filterAmenity('Amenity1', 'eq', 'val')
+        .filterUDF('My Field', 'in', [1,2,3])
     })
     
     describe.skip("embeds", () => {

@@ -1,4 +1,5 @@
 const {makeFilter, makeFilterString} = require('./Filter')
+const Query = require('./Query');
 
 const ALLOWED_EMBEDS = [
   'Addresses', 'Amenities', 'CreateUser', 'Floor',
@@ -9,6 +10,31 @@ const ALLOWED_EMBEDS = [
 
 
 const Units = {
+
+  find() {
+    const query = Query({
+      base: this.base, 
+      url: this.basePath,
+    })
+
+    Object.assign(query, {
+      filterAmenity(amenity) {
+        const sub = this._makeFilter('Text', 'eq', amenity);
+        this.filter(`Amenities(${sub}).Selected`, 'eq', 'true');
+
+        return this;
+      },
+      filterUdf(udfName, op, udfValue) {
+        const sub = this._makeFilter('Name', 'eq', udfName);
+        this.filter(`UserDefinedValues(${sub}).Value`, op, udfValue);
+
+        return this;
+      }
+    });
+
+    return query;
+  },
+
   /**
    * 
    * @param {Object} options 
@@ -36,7 +62,6 @@ const Units = {
     qs = (qs) ? '?' + qs.join('&') : '';
 
     const url = this.basePath + qs;
-    console.log("URL", url)
     
     try {
       const units = await = this.base.get(url);
