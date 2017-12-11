@@ -83,10 +83,11 @@ module.exports = ({username, password, clientId}) => {
   api.baseUrl = `https://${clientId}.api.rentmanager.com`
   api.token = null
 
-  api.Filter = require('./Filter')
-  api.Authentication = require('./Authentication')(api)
-  api.Properties = require('./Properties')(api)
-  api.Units = require('./Units')(api)
+  api.Filter         = require('./Filter');
+  api.Authentication = require('./Authentication')(api);
+  api.Properties     = require('./Properties')(api);
+  api.Units          = require('./Units')(api);
+  api.ServiceManager = require('./ServiceManager')(api);
 
   return api
 }

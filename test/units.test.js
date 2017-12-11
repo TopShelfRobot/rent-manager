@@ -1,7 +1,8 @@
 const {assert} = require('chai');
 const format = require('date-fns/format')
-const RentManagerApi = require('../rentManager')
-require('dotenv').config()
+
+const rm = require('./testApi');
+
 
 /**
  * { UnitID: 1,
@@ -32,26 +33,12 @@ require('dotenv').config()
  */
 
 describe("Units", () => {
-  let rm;
 
   before(async () => {
-    if (
-      !process.env.RM_USERNAME ||
-      !process.env.RM_PASSWORD ||
-      !process.env.RM_CLIENTID
-    ) {
-      throw new Error('In order to test Units api, you must set RM_USERNAMEm RM_PASSWORD, RM_CLIENTID environment variables')
-    }
-
-    const username = process.env.RM_USERNAME
-    const password = process.env.RM_PASSWORD
-    const clientId = process.env.RM_CLIENTID
-
-    rm = RentManagerApi({username, password, clientId})
-    await rm.Authentication.authorizeUser()
+    await rm.Authentication.authorizeUser();
   })
 
-  describe.only('search()', () => {
+  describe('search()', () => {
     it("gets a list of units", async () => {
       const units = await rm.Units.search()
       
