@@ -51,7 +51,7 @@ describe("Units", () => {
     await rm.Authentication.authorizeUser()
   })
 
-  describe('search()', () => {
+  describe.only('search()', () => {
     it("gets a list of units", async () => {
       const units = await rm.Units.search()
       
@@ -66,6 +66,14 @@ describe("Units", () => {
       assert.equal(units.length, 2)
     })
 
+    it("puts a limit on the returned items via fluent API", async () => {
+      const q = rm.Units.find()
+        .pageSize(2)
+        
+      const units = await q.exec();
+      assert.equal(units.length, 2);
+    })
+
     it("retrieves a specified page", async () => {
       const baseUnits = await rm.Units.search({pageSize: 6})
       const page1 = await rm.Units.search({pageSize: 2, pageNumber: 1})
@@ -75,8 +83,7 @@ describe("Units", () => {
       assert.equal(baseUnits[0].UnitId, page1[0].UnitId)
       assert.equal(baseUnits[2].UnitId, page2[0].UnitId)
       assert.equal(baseUnits[4].UnitId, page3[0].UnitId)
-
-    })
+    }).timeout(5000)
 
     describe("searching on Amenities", () => {
       it("retrieves units with a single amenity selected", async () => {
@@ -100,7 +107,7 @@ describe("Units", () => {
           assert.isOk(am)
           assert.equal(am.Selected, true)
         });
-      }).timeout(5000)
+      }).timeout(15000)
       
       it("retrieves units with multiple Amenities selected", async () => {
         const Amenity1 = 'Dogs Allowed';
@@ -136,16 +143,9 @@ describe("Units", () => {
           assert.equal(am1.Selected, true, `Expected amentiy '${am1.Text}' to be true on unit #${idx}`)
           assert.equal(am2.Selected, true, `Expected amentiy '${am2.Text}' to be true on unit #${idx}`)
         });
-      }).timeout(5000)
+      }).timeout(15000)
     })
 
-    it("fluent UNIT", () => {
-      rm.Units.find()
-        .filter('field1', 'eq', 'value1')
-        .filter('field2', 'lt', 4)
-        .filterAmenity('Amenity1', 'eq', 'val')
-        .filterUDF('My Field', 'in', [1,2,3])
-    })
     
     describe.skip("embeds", () => {
       it("embeds amenities on request", async () => {

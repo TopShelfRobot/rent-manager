@@ -29,7 +29,7 @@ const unique = (item, idx, coll) => idx === col.indexOf(item);
 const Query = {
   filter(prop, op, val) {
     const filter = this._makeFilter(prop, op, val);
-    this.filters.push(filter);
+    this._filters.push(filter);
   
     return this;
   },
@@ -38,9 +38,9 @@ const Query = {
     if (this.allowedEmbeds && !this.allowedEmbeds.includes(name)) throw new Error(`Embed '${name}' is not allowed`);
     
     if (isString(name)) {
-      if (!this.embeds.includes(name)) this.embeds.push(name);
+      if (!this._embeds.includes(name)) this._embeds.push(name);
     } else if (Array.isArray(name)) {
-      this.embeds = name
+      this._embeds = name
     } else {
       throw new Error('Error adding fields to query, expected string or array')
     }
@@ -50,9 +50,9 @@ const Query = {
 
   field(fld) {
     if (isString(fld)) {
-      if (!this.fields.includes(fld)) this.fields.push(fld);
+      if (!this._fields.includes(fld)) this._fields.push(fld);
     } else if (Array.isArray(fld)) {
-      this.fields = fld
+      this._fields = fld
     } else {
       throw new Error('Error adding fields to query, expected string or array')
     }
@@ -61,12 +61,12 @@ const Query = {
   },
 
   pageSize(size) {
-    this.pageSize = size;
+    this._pageSize = size;
     return this;
   },
 
   pageNumber(num) {
-    this.pageNumber = num;
+    this._pageNumber = num;
     return this;
   },
 
@@ -78,20 +78,20 @@ const Query = {
 
   _makeUrl() {
     let qs = []
-    if (this.filters && this.filters.length) {
-      qs.push(`filters=${this.filters.join(';')}` )
+    if (this._filters && this._filters.length) {
+      qs.push(`filters=${this._filters.join(';')}` )
     }
 
-    if (this.embeds && this.embeds.length) {
-      qs.push(`embeds=${this.embeds.join(',')}`)
+    if (this._embeds && this._embeds.length) {
+      qs.push(`embeds=${this._embeds.join(',')}`)
     }
 
-    if (this.fields && this.fields.length) {
-      qs.push(`fields=${this.fields.join(',')}`)
+    if (this._fields && this._fields.length) {
+      qs.push(`fields=${this._fields.join(',')}`)
     }
 
-    if (this.pageSize) qs.push(`pageSize=${this.pageSize}`)
-    if (this.pageNumber) qs.push(`pageNumber=${this.pageNumber}`)
+    if (this._pageSize) qs.push(`pageSize=${this._pageSize}`)
+    if (this._pageNumber) qs.push(`pageNumber=${this._pageNumber}`)
 
     qs = (qs) ? '?' + qs.join('&') : '';
 
@@ -123,11 +123,11 @@ module.exports = (options) => {
   };
 
   const props = {
-    pageSize: null,
-    pageNumber: null,
-    fields: [],
-    filters: [],
-    embeds: [],
+    _pageSize: null,
+    _pageNumber: null,
+    _fields: [],
+    _filters: [],
+    _embeds: [],
   };
   
   options = pick(options, Object.keys(defaults));

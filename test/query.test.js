@@ -16,7 +16,7 @@ const base = {
   }
 }
 
-describe.only("Query", () => {
+describe("Query", () => {
   const baseUrl = 'http://www.example.com/';
 
   it("adds a filter to a url", () => {
