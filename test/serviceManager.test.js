@@ -1,8 +1,10 @@
 const {assert} = require('chai');
+const format = require('date-fns/format')
+
 
 const rm = require('./testApi');
 
-describe.only("ServiceManager", () => {
+describe("ServiceManager", () => {
   before(async () => {
     await rm.Authentication.authorizeUser();
   })
@@ -14,6 +16,37 @@ describe.only("ServiceManager", () => {
       assert.isAbove(statuses.length, 0)
       assert.property(statuses[0], 'ServiceManagerStatusID')
     })
+  })
 
+  describe.only("Issues", () => {
+    it("gets a list of issues", async () => {
+      const issues = await rm.ServiceManager.Issues
+        .find()
+        .pageSize(10)
+        .exec();
+
+      console.log("ISSUES", issues);
+    })
+
+    it("creates an issue", async () => {
+      const newIssue = {
+        Title: 'My Test Issue',
+        Description: 'Test issue created on ' + format(new Date()),
+        "CategoryID": 1,
+        "StatusID": 1,
+        "PriorityID": 1,
+        "AssignedToUserID": 1,
+      }
+
+      try {
+        const response = await rm.ServiceManager.Issues.post(newIssue);
+  
+        console.log("POST", response);
+      } catch(err) {
+        console.log(err);
+        throw err
+      }
+      
+    })
   })
 })

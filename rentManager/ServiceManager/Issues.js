@@ -1,4 +1,5 @@
 const Query = require('../Query');
+const validateIssue = require('./issue.schema');
 
 const ServiceManagerIssues = {
   /**
@@ -10,7 +11,17 @@ const ServiceManagerIssues = {
     })
 
     return query;
-  }
+  },
+
+  post(data) {
+    const results = validateIssue(data);
+    if (results.error) {
+      console.error(results.error);
+      throw new Error("Error validating Service Issue", err.message);
+    }
+
+    return this.base.post(this.basePath, [results.value]);
+  },
 }
 
 module.exports = base => {

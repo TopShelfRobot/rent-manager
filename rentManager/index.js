@@ -35,6 +35,9 @@ const Api = {
       json: true,
       headers: Object.assign(headers, {})
     }
+
+    console.log("POST OPTIONS", options)
+
     const response = await this.request(options)
 
 
@@ -68,18 +71,23 @@ const Api = {
   clearToken() { return this.setToken() },
 
   getCredentials() { return this.credentials },
+  getLocation() { return this.location; },
+  setLocation(location) { this.location = location; },
 
 
 
 }
 
 
-module.exports = ({username, password, clientId}) => {
+module.exports = ({username, password, clientId, location}) => {
   // TODO: make sure we have username, password, clientId
 
   const api = Object.create(Api)
-  api.credentials = { username, password }
-  api.clientId = clientId
+  api.credentials = { username, password };
+  api.username = username;
+  api.password = password;
+  api.clientId = clientId;
+  api.location = location;
   api.baseUrl = `https://${clientId}.api.rentmanager.com`
   api.token = null
 
@@ -88,6 +96,7 @@ module.exports = ({username, password, clientId}) => {
   api.Properties     = require('./Properties')(api);
   api.Units          = require('./Units')(api);
   api.ServiceManager = require('./ServiceManager')(api);
+  api.Locations       = require('./Locations')(api);
 
   return api
 }
