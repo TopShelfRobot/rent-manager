@@ -21,7 +21,7 @@ const Location = {
    * }
    */
   CurrentLocation() {
-    const url = this.basePath + '/CurrentLocation;
+    const url = this.basePath + '/CurrentLocation';
 
     return await this.base.get(url);
   },
