@@ -36,11 +36,7 @@ const Api = {
       headers: Object.assign(headers, {})
     }
 
-    console.log("POST OPTIONS", options)
-
     const response = await this.request(options)
-
-
     return response
   },
 
