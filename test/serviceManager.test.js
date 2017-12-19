@@ -18,7 +18,7 @@ describe("ServiceManager", () => {
     })
   })
 
-  describe("Issues", () => {
+  describe.skip("Issues", () => {
     it("gets a list of issues", async () => {
       const issues = await rm.ServiceManager.Issues
         .find()
@@ -28,7 +28,7 @@ describe("ServiceManager", () => {
       console.log("ISSUES", issues);
     })
 
-    it.skip("creates an issue", async () => {
+    it("creates an issue", async () => {
       const newIssue = {
         Title: 'My Test Issue',
         Description: 'Test issue created on ' + format(new Date()),
@@ -36,16 +36,19 @@ describe("ServiceManager", () => {
         "StatusID": 1,
         "PriorityID": 1,
         "AssignedToUserID": 1,
+        "AssignedOpenDate": new Date(),
       }
+
 
       try {
         const response = await rm.ServiceManager.Issues.post(newIssue);
+        console.log("CREATE ISSUE", JSON.stringify(response, null, 2))
   
       } catch(err) {
         console.log(err);
         throw err
       }
       
-    })
+    }).timeout(5000);
   })
 })

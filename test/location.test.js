@@ -16,7 +16,7 @@ describe("Location", () => {
     })
   })
 
-  describe.only("Changing locations", () => {
+  describe("Changing locations", () => {
     it("changes the location", async () => {
       const startLocation = await rm.Locations.CurrentLocation();
       await rm.Authentication.ChangeLocation(startLocation.LocationID+1);

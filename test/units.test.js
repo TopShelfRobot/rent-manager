@@ -41,7 +41,6 @@ describe("Units", () => {
   describe('search()', () => {
     it("gets a list of units", async () => {
       const units = await rm.Units.search()
-      
       assert.isOk(units)
       assert.isArray(units)
     })

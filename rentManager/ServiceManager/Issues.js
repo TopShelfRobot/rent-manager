@@ -22,6 +22,12 @@ const ServiceManagerIssues = {
 
     return this.base.post(this.basePath, [results.value]);
   },
+
+  LinkUnit(id, unitID) {
+    const url = `${this.basePath}/${id}/LinkUnit?unitID=${unitID}`;
+
+    return await this.base.post(url);
+  },
 }
 
 module.exports = base => {
