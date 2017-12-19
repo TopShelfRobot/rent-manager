@@ -23,6 +23,12 @@ const ServiceManagerIssues = {
     return this.base.post(this.basePath, [results.value]);
   },
 
+  delete(id) {
+    const url = `${this.basePath}/${id}`;
+
+    return await this.base.delete(url);
+  },
+
   LinkUnit(id, unitID) {
     const url = `${this.basePath}/${id}/LinkUnit?unitID=${unitID}`;
 

@@ -40,6 +40,19 @@ const Api = {
     return response
   },
 
+  async delete(uri) {
+    const headers = this.defaultHeaders()
+    const options = {
+      method: 'DELETE',
+      uri: uri,
+      headers: Object.assign(headers, {}),
+      json: true,
+    }
+
+    const response = await this.request(options)
+    return response
+  },
+
   async request(options) {
     options = Object.assign({}, options, {
       uri: this.baseUrl + options.uri
