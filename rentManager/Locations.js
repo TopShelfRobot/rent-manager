@@ -20,7 +20,7 @@ const Location = {
    *  "IsOAPEnabled": true
    * }
    */
-  CurrentLocation() {
+  async CurrentLocation() {
     const url = this.basePath + '/CurrentLocation';
 
     return await this.base.get(url);
