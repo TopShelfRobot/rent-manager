@@ -4,7 +4,27 @@ const Location = {
   find() {
     const q = Query({base: this.base, url: this.basePath});
     return q;
-  }
+  },
+
+  /**
+   * Retrieves the current location
+   * {
+   *  "LocationID": 1,
+   *  "Name": "sample string 2",
+   *  "FriendlyName": "sample string 3",
+   *  "IsMainLocation": true,
+   *  "IsLWAEnabled": true,
+   *  "IsTWAEnabled": true,
+   *  "IsOWAEnabled": true,
+   *  "IsAvidPay": true,
+   *  "IsOAPEnabled": true
+   * }
+   */
+  CurrentLocation() {
+    const url = this.basePath + '/CurrentLocation;
+
+    return await this.base.get(url);
+  },
 }
 
 
