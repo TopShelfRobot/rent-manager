@@ -8,7 +8,7 @@ const Authentication = {
       username: this.base.username,
       password: this.base.password,
     }
-    if (this.base.location) req.location = this.base.location;
+    if (this.base.location) req.locationID = this.base.location;
     
     this.base.clearToken()
 

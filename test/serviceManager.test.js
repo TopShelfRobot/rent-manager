@@ -18,7 +18,7 @@ describe("ServiceManager", () => {
     })
   })
 
-  describe.only("Issues", () => {
+  describe("Issues", () => {
     it("gets a list of issues", async () => {
       const issues = await rm.ServiceManager.Issues
         .find()
@@ -28,7 +28,7 @@ describe("ServiceManager", () => {
       console.log("ISSUES", issues);
     })
 
-    it("creates an issue", async () => {
+    it.skip("creates an issue", async () => {
       const newIssue = {
         Title: 'My Test Issue',
         Description: 'Test issue created on ' + format(new Date()),
@@ -41,7 +41,6 @@ describe("ServiceManager", () => {
       try {
         const response = await rm.ServiceManager.Issues.post(newIssue);
   
-        console.log("POST", response);
       } catch(err) {
         console.log(err);
         throw err

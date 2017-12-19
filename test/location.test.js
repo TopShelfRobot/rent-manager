@@ -15,4 +15,30 @@ describe("Location", () => {
 
     })
   })
+
+  describe.only("Changing locations", () => {
+    it("changes the location", async () => {
+      const startLocation = await rm.Locations.CurrentLocation();
+      await rm.Authentication.ChangeLocation(startLocation.LocationID+1);
+      const endLocation = await rm.Locations.CurrentLocation();
+
+      assert.notEqual(startLocation.FriendlyName, endLocation.FriendlyName);
+
+    })
+
+    it("authenticates to another location", async () => {
+      const RentManagerApi = require('../rentManager');
+
+      const username = process.env.RM_USERNAME;
+      const password = process.env.RM_PASSWORD;
+      const clientId = process.env.RM_CLIENTID;
+      const location = 3;
+      const rm2 = RentManagerApi({username, password, clientId, location});
+
+      await rm2.Authentication.authorizeUser();
+      const loc = await rm2.Locations.CurrentLocation();
+      assert.equal(loc.LocationID, location);
+
+    }).timeout(5000)
+  })
 })
