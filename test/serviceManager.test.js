@@ -7,9 +7,10 @@ const rm = require('./testApi');
 
 describe("ServiceManager", () => {
   describe("Schema", () => {
-    it("validates an empty due date", () => {
+    it.only("validates an empty due date", () => {
       const res = validateIssue({
         DueDate: '',
+        Title: ''
       })
 
       assert.notOk(res.error);
