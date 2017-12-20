@@ -16,7 +16,6 @@ const ServiceManagerIssues = {
   post(data) {
     const results = validateIssue(data);
     if (results.error) {
-      console.error(results.error);
       throw new Error("Error validating Service Issue", results.error.message);
     }
 
