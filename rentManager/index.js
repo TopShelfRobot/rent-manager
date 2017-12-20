@@ -67,6 +67,7 @@ const Api = {
         const err = new Error(error.DeveloperMessage)
         err.status = statusCode;
         err.original = error;
+        err.uri = options.uri;
         throw err
       } else {
         throw error
