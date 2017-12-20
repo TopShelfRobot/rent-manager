@@ -18,14 +18,14 @@ describe("ServiceManager", () => {
     })
   })
 
-  describe.skip("Issues", () => {
+  describe.only("Issues", () => {
     it("gets a list of issues", async () => {
       const issues = await rm.ServiceManager.Issues
         .find()
         .pageSize(10)
         .exec();
 
-      console.log("ISSUES", issues);
+      assert.isAbove(issues.length, 0);
     })
 
     it("creates an issue", async () => {
@@ -37,6 +37,9 @@ describe("ServiceManager", () => {
         "PriorityID": 1,
         "AssignedToUserID": 1,
         "AssignedOpenDate": new Date(),
+        "LinkedUnits": [
+          {UnitID: 1}
+        ],
       }
 
 

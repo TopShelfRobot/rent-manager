@@ -32,7 +32,7 @@ const schema = Joi.object({
   // "LinkedTenants":          [],
   // "LinkedProspects":        [],
   // "LinkedProperties":       [],
-  // "LinkedUnits":            [],
+  "LinkedUnits":            Joi.array(),
   // "WorkOrders":             [],
   // "History":                [],
   // "UserDefinedValues":      [],
