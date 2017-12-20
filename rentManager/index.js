@@ -65,7 +65,8 @@ const Api = {
     } catch ({error, statusCode, options}) {
       if (isRentmanagerError(error)) {
         const err = new Error(error.DeveloperMessage)
-        err.status = statusCode
+        err.status = statusCode;
+        err.original = error;
         throw err
       } else {
         throw error
