@@ -132,6 +132,21 @@ describe("Units", () => {
       }).timeout(15000)
     })
 
+    describe.only("searching on UDFs", () => {
+      it("retrieves Structure UnitIDs", async () => {
+        const units = await rm.Units.find()
+          .field(['UnitID','UserDefinedValues'])
+          .embed(['UserDefinedValues'])
+          .filterUdf('Structure UnitID', 'in', '(3466,9766)')
+          .exec();
+
+        console.log(JSON.stringify(units, null, 2));
+        assert.isOk(units.length);
+        
+        
+      })
+    })
+
     
     describe.skip("embeds", () => {
       it("embeds amenities on request", async () => {

@@ -23,7 +23,9 @@ const ServiceManagerIssues = {
   },
 
   async delete(id) {
-    const url = `${this.basePath}/${id}`;
+    const url = (Array.isArray(id)) 
+      ? `${this.basePath}?ids=(${id.join(',')})`
+      : `${this.basePath}/${id}`;
 
     return await this.base.delete(url);
   },
