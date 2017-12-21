@@ -108,6 +108,7 @@ module.exports = ({username, password, clientId, location}) => {
   api.Units          = require('./Units')(api);
   api.ServiceManager = require('./ServiceManager')(api);
   api.Locations       = require('./Locations')(api);
+  api.Tenants       = require('./Tenants')(api);
 
   return api
 }
