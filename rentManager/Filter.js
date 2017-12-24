@@ -69,7 +69,7 @@ const makeFilter = (options) => {
     }
     
     const model = `${options.model}(${makeFilter(options.filters[0])})`
-    return makeFilter({...options.filters[1], model})
+    return makeFilter(Object.assign({}, options.filters[1], model));
   }
 }
 
