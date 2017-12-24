@@ -32,7 +32,7 @@ const rm = require('./testApi');
  * MarketingData: {} }
  */
 
-describe("Units", () => {
+describe.only("Units", () => {
 
   before(async () => {
     await rm.Authentication.authorizeUser();
@@ -132,7 +132,7 @@ describe("Units", () => {
       }).timeout(15000)
     })
 
-    describe.only("searching on UDFs", () => {
+    describe("searching on UDFs", () => {
       it("retrieves Structure UnitIDs", async () => {
         const units = await rm.Units.find()
           .field(['UnitID','UserDefinedValues'])
@@ -140,7 +140,6 @@ describe("Units", () => {
           .filterUdf('Structure UnitID', 'in', '(3466,9766)')
           .exec();
 
-        console.log(JSON.stringify(units, null, 2));
         assert.isOk(units.length);
         
         

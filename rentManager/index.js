@@ -1,4 +1,5 @@
-const rp = require('request-promise')
+// const rp = require('request-promise')
+const request = require('superagent');
 
 const isRentmanagerError = err => err && err.DeveloperMessage
 
@@ -59,18 +60,24 @@ const Api = {
     })
 
     try {
-      const response = await rp(options)
+      const response = await request(options.method, options.uri)
+        .set(options.headers)
+        .type('json')
+        .send((options.body) ? JSON.stringify(options.body) : '');
 
-      return response
-    } catch ({error, statusCode, options}) {
-      if (isRentmanagerError(error)) {
-        const err = new Error(error.DeveloperMessage)
-        err.status = statusCode;
-        err.original = error;
+      return response.body;
+    } catch(error) {
+      if (isRentmanagerError(error.response.body)) {
+        const err = new Error(error.response.body.DeveloperMessage)
+        err.status = error.status;
+        err.original = error.response.body;
         err.uri = options.uri;
         throw err
-      } else {
-        throw error
+      } else  {
+        const err = new Error(error.response.body.message || error.response.body.Message);
+        err.body = error.response.body;
+        err.status = error.status;
+        throw err;
       }
     }
   },
