@@ -171,5 +171,5 @@ module.exports = (options) => {
   return query
 }
 
-Tenants.RecurringCharges.get().param('TenantID', 123).then()
-Tenants.RecurringCharges.post().param('TenantID', 123).data(newCharge).then()
+// Tenants.RecurringCharges.get().param('TenantID', 123).then()
+// Tenants.RecurringCharges.post().param('TenantID', 123).data(newCharge).then()
