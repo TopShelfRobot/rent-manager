@@ -19,6 +19,7 @@ module.exports = base => {
 
   tenants.base = base;
   tenants.basePath = '/Tenants';
+  tenants.RecurringCharges = require('./RecurringCharges')(this.base);
 
   return tenants;
 }
