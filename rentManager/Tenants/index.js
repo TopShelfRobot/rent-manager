@@ -10,7 +10,12 @@ const Tenants = {
     Object.assign(query, { });
 
     return query;
-  }
+  },
+
+  getById(id) {
+    const url = this.basePath + '/' + id;
+    return Query({base: this.base, url}).exec();
+  },
 }
 
 
