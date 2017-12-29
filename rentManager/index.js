@@ -122,6 +122,7 @@ module.exports = ({username, password, clientId, location}) => {
   api.ServiceManager = require('./ServiceManager')(api);
   api.Locations       = require('./Locations')(api);
   api.Tenants       = require('./Tenants')(api);
+  api.ChargeTypes = require('./ChargeTypes')(api);
 
   return api
 }
