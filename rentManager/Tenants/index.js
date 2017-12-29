@@ -14,7 +14,7 @@ const Tenants = {
 
   getById(id) {
     const url = this.basePath + '/' + id;
-    return Query({base: this.base, url}).exec();
+    return Query({base: this.base, url});
   },
 }
 
@@ -25,6 +25,7 @@ module.exports = base => {
   tenants.base = base;
   tenants.basePath = '/Tenants';
   tenants.RecurringCharges = require('./RecurringCharges')(base);
+  tenants.Leases = require('./Leases')(base);
 
   return tenants;
 }
