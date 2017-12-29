@@ -11,21 +11,21 @@ const Leases = {
       url: this.basePath,
     })
 
-    Object.assign(query, {
-      filterCurrent() {
+    // Object.assign(query, {
+    //   filterCurrent() {
 
-        const sub = this._makeFilter('Text', 'eq', amenity);
-        this.filter(`Amenities(${sub}).Selected`, 'eq', 'true');
+    //     const sub = this._makeFilter('Text', 'eq', amenity);
+    //     this.filter(`Amenities(${sub}).Selected`, 'eq', 'true');
 
-        return this;
-      },
-      filterUdf(udfName, op, udfValue) {
-        const sub = this._makeFilter('Name', 'eq', udfName);
-        this.filter(`UserDefinedValues(${sub}).Value`, op, udfValue);
+    //     return this;
+    //   },
+    //   filterUdf(udfName, op, udfValue) {
+    //     const sub = this._makeFilter('Name', 'eq', udfName);
+    //     this.filter(`UserDefinedValues(${sub}).Value`, op, udfValue);
 
-        return this;
-      }
-    });
+    //     return this;
+    //   }
+    // });
 
   },
 
