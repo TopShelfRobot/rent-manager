@@ -1,7 +1,8 @@
 // const rp = require('request-promise')
 const request = require('superagent');
 
-const isRentmanagerError = err => err && err.DeveloperMessage
+const isResponseError = err => err && err.response && err.response.body;
+const isRentmanagerError = err => err && err.DeveloperMessage;
 
 const Api = {
 
@@ -67,15 +68,18 @@ const Api = {
 
       return response.body;
     } catch(error) {
-      if (isRentmanagerError(error.response.body)) {
-        const err = new Error(error.response.body.DeveloperMessage)
+      if (!isResponseError(error)) throw error;
+
+      const responseError = error.response.body;
+      if (isRentmanagerError(responseError)) {
+        const err = new Error(responseError.DeveloperMessage)
         err.status = error.status;
-        err.original = error.response.body;
+        err.original = responseError;
         err.uri = options.uri;
         throw err
       } else  {
-        const err = new Error(error.response.body.message || error.response.body.Message);
-        err.body = error.response.body;
+        const err = new Error(responseError.message || responseError.Message);
+        err.body = responseError;
         err.status = error.status;
         throw err;
       }
