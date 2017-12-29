@@ -117,6 +117,7 @@ module.exports = ({username, password, clientId, location}) => {
 
   api.Filter         = require('./Filter');
   api.Authentication = require('./Authentication')(api);
+  api.Users = require('./Users')(api);
   api.Properties     = require('./Properties')(api);
   api.Units          = require('./Units')(api);
   api.ServiceManager = require('./ServiceManager')(api);
