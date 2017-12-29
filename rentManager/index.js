@@ -1,6 +1,6 @@
 // const rp = require('request-promise')
 const request = require('superagent');
-const debug = require('debug')('http');
+const debug = require('debug')('base');
 
 const isResponseError = err => err && err.response && err.response.body;
 const isRentmanagerError = err => err && err.DeveloperMessage;
@@ -61,8 +61,6 @@ const Api = {
       uri: this.baseUrl + options.uri
     })
 
-    debug(`${options.method} ${options.uri}`);
-
     try {
       const response = await request(options.method, options.uri)
         .set(options.headers)
@@ -106,6 +104,7 @@ const Api = {
 
 module.exports = ({username, password, clientId, location}) => {
   // TODO: make sure we have username, password, clientId
+  
 
   const api = Object.create(Api)
   api.credentials = { username, password };

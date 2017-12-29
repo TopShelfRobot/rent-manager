@@ -119,7 +119,7 @@ const Query = {
     qs = (qs) ? '?' + qs.join('&') : '';
 
     const paramRe = /{[^}]+}/g;
-    const params = this.url.match(paramRe).map(m => m.replace(/[{}]/g,""));
+    const params = (this.url.match(paramRe) || []).map(m => m.replace(/[{}]/g,""));
     const missingParams = params.filter(p => !(p in this._params));
     if (missingParams.length) {
       throw new Error(`Missing params [${missingParams.join(', ')}] for url ${this.url}.  Use the function 'Query.param(paramName, paramValue)'.`);

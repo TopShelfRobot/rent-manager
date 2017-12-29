@@ -32,7 +32,7 @@ const rm = require('./testApi');
  * MarketingData: {} }
  */
 
-describe.only("Units", () => {
+describe("Units", () => {
 
   before(async () => {
     await rm.Authentication.authorizeUser();

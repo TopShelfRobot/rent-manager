@@ -21,7 +21,7 @@ const RecurringCharges = {
       validate: validateRecurringCharges
     });
   },
-  
+
   find() { return this.get(); },
 
 
@@ -31,7 +31,7 @@ module.exports = base => {
   const recurringCharges = Object.create(RecurringCharges)
 
   recurringCharges.base = base
-  recurringCharges.basePath = 'Tenants/{id}/RecurringCharges'
+  recurringCharges.basePath = '/Tenants/{id}/RecurringCharges'
 
   return recurringCharges
 }
