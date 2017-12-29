@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const udfSchema = Joi.Object({
+const udfSchema = Joi.object({
   "UserDefinedFieldID": Joi.number(),
   "ParentID":           Joi.number(),
   "Name":               Joi.string(),
