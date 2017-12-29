@@ -70,6 +70,11 @@ const Query = {
     return this;
   },
 
+  param(paramName, paramValue) {
+    this._params[paramName] = paramValue;
+    return this;
+  },
+
   exec() {
     const url = this._makeUrl();
     
@@ -95,7 +100,15 @@ const Query = {
 
     qs = (qs) ? '?' + qs.join('&') : '';
 
-    return this.url + qs;
+    const paramRe = /{[^}]+}/g;
+    const params = this.url.match(paramRe).map(m => m.replace(/[{}]/g,""));
+    const missingParams = params.filter(p => !(p in this._params));
+    if (missingParams.length) {
+      throw new Error(`Missing params [${missingParams.join(', ')}] for url ${this.url}.  Use the function 'Query.param(paramName, paramValue)'.`);
+    }
+    const url = params.reduce((url, p) => url.split(`{${p}}`).join(this._params[p]), this.url);
+
+    return url + qs;
   },
 
   _makeFilter(prop, op, val) {
@@ -128,6 +141,7 @@ module.exports = (options) => {
     _fields: [],
     _filters: [],
     _embeds: [],
+    _params: {},
   };
   
   options = pick(options, Object.keys(defaults));
