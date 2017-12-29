@@ -1,6 +1,9 @@
 const isString = require('lodash/isString');
 const isNil = require('lodash/isNil');
+const isDate = require('lodash/isDate');
 const pick = require('lodash/pick');
+const format = require('date-fns/format')
+
 
 const operations = {
   eq: "EqualTo",
@@ -134,6 +137,8 @@ const Query = {
     if (!ALLOWED_OPS.includes(op)) throw new Error(`'op' is not an allowed operation (received '${op}')`)
     if (isNil(val)) throw new Error (`Expected non null/undefined for 'value`)
   
+    if (isDate(val)) val = format(val);
+    
     return [prop, op, encodeURIComponent(val)].join(',');
   }
 }
