@@ -1,25 +1,37 @@
 const Query = require('../Query');
+const validateRecurringCharges = require('./recurringCharges.schema');
 
 const RecurringCharges = {
   /**
   
    */
-  find() {
-    const query = Query({
+  get() {
+    return Query({
       base: this.base, 
       url: this.basePath,
     })
+  },
 
-    return query;
-  }
+  
+  post(data) {
+    return Query({
+      base: this.base,
+      url: this.basePath,
+      method: 'post',
+      validate: validateRecurringCharges
+    });
+  },
+  
+  find() { return this.get(); },
+
 
 }
 
 module.exports = base => {
-  const statuses = Object.create(RecurringCharges)
+  const recurringCharges = Object.create(RecurringCharges)
 
-  statuses.base = base
-  statuses.basePath = '/RecurringCharges'
+  recurringCharges.base = base
+  recurringCharges.basePath = 'Tenants/{id}/RecurringCharges'
 
-  return statuses
+  return recurringCharges
 }

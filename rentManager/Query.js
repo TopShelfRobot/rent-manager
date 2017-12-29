@@ -75,10 +75,28 @@ const Query = {
     return this;
   },
 
+  data(d) {
+    this._data = d;
+    return this;
+  },
+
   exec() {
     const url = this._makeUrl();
-    
-    return this.base.get(url);
+
+    if (this.validate && this._data) {
+      const results = this.validate(this._data);
+      if (results.error) {
+        throw results.error;
+      }
+    }
+
+
+    switch(this.method) {
+      case 'post':
+        return this.base.post(url, this._data);
+      default: 
+        return this.base.get(url);
+    }
   },
 
   _makeUrl() {
@@ -130,9 +148,11 @@ module.exports = (options) => {
 
   const defaults = {
     url: '',
+    method: 'get',
     base: null,
     allowedEmbeds: null,
     defaultEmbeds: [],
+    validate: null,
   };
 
   const props = {
@@ -142,6 +162,7 @@ module.exports = (options) => {
     _filters: [],
     _embeds: [],
     _params: {},
+    _data: null,
   };
   
   options = pick(options, Object.keys(defaults));
@@ -149,3 +170,6 @@ module.exports = (options) => {
 
   return query
 }
+
+Tenants.RecurringCharges.get().param('TenantID', 123).then()
+Tenants.RecurringCharges.post().param('TenantID', 123).data(newCharge).then()

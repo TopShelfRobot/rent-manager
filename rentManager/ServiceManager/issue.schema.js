@@ -1,4 +1,4 @@
-const Joi = require('joi-browser');
+const Joi = require('joi');
 
 
 const schema = Joi.object({
