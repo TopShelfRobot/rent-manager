@@ -2,10 +2,10 @@ const Joi = require('joi');
 
 const recurringChargeSchema = Joi.object({
   "RecurringChargeID":    Joi.number(),
-  "EntityType":           Joi.number(),
+  "EntityType":           Joi.number().required(),
   "EntityKeyID":          Joi.number(),
-  "UnitID":               Joi.number(),
-  "Frequency":            Joi.number(),
+  "UnitID":               Joi.number().required(),
+  "Frequency":            Joi.number().required(),
   "ChargeTypeID":         Joi.number(),
   "Amount":               Joi.number(),
   "AmountPerSquareFoot":  Joi.number(),

@@ -26,6 +26,7 @@ module.exports = base => {
   tenants.basePath = '/Tenants';
   tenants.RecurringCharges = require('./RecurringCharges')(base);
   tenants.Leases = require('./Leases')(base);
+  tenants.UserDefinedValues = require('./UserDefinedValues')(base);
 
   return tenants;
 }
