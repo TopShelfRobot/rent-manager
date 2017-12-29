@@ -27,6 +27,7 @@ module.exports = base => {
   tenants.RecurringCharges = require('./RecurringCharges')(base);
   tenants.Leases = require('./Leases')(base);
   tenants.UserDefinedValues = require('./UserDefinedValues')(base);
+  tenants.UserDefinedFields = require('./UserDefinedFields')(base);
 
   return tenants;
 }
