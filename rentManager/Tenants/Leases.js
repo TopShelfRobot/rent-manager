@@ -26,6 +26,7 @@ const Leases = {
     //     return this;
     //   }
     // });
+    return query;
 
   },
 
