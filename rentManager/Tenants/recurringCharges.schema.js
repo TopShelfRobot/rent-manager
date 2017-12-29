@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const schema = Joi.object({
+const recurringChargeSchema = Joi.object({
   "RecurringChargeID":    Joi.number(),
   "EntityType":           Joi.number(),
   "EntityKeyID":          Joi.number(),
@@ -21,6 +21,8 @@ const schema = Joi.object({
   "UpdateDate":           Joi.date().iso().empty(''),
   "UpdateUserID":         Joi.number(),
 })
+
+const schema = Joi.array().items(recurringChargeSchema);
 
 const options = {
   abortEarly: false,
