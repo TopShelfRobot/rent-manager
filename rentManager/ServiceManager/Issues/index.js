@@ -44,6 +44,7 @@ module.exports = base => {
   issues.basePath = '/ServiceManagerIssues';
 
   issues.UserDefinedFields = require('./UserDefinedFields')(base);
+  issues.UserDefinedValues = require('./UserDefinedValues')(base);
 
   return issues
 }
