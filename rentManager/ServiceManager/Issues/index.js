@@ -1,4 +1,4 @@
-const Query = require('../Query');
+const Query = require('../../Query');
 const validateIssue = require('./issue.schema');
 
 const ServiceManagerIssues = {
