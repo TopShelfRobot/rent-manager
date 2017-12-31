@@ -78,6 +78,11 @@ const Query = {
     return this;
   },
 
+  options(optionProp, value) {
+    this._options[optionProp] = value;
+    return this;
+  },
+
   data(d) {
     this._data = d;
     return this;
@@ -96,9 +101,9 @@ const Query = {
 
     switch(this.method) {
       case 'post':
-        return this.base.post(url, this._data);
+        return this.base.post(url, this._data, this._options);
       default: 
-        return this.base.get(url);
+        return this.base.get(url, this._options);
     }
   },
 
@@ -168,6 +173,7 @@ module.exports = (options) => {
     _embeds: [],
     _params: {},
     _data: null,
+    _options: {},
   };
   
   options = pick(options, Object.keys(defaults));
