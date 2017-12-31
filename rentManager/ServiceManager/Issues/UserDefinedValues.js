@@ -1,4 +1,4 @@
-const Query = require('../Query');
+const Query = require('../../Query');
 const validateUserDefinedValues = require('./UserDefinedValues.schema');
 
 const UserDefinedValues = {
