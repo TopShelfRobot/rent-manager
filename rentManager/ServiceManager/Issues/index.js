@@ -38,10 +38,12 @@ const ServiceManagerIssues = {
 }
 
 module.exports = base => {
-  const statuses = Object.create(ServiceManagerIssues)
+  const issues = Object.create(ServiceManagerIssues);
 
-  statuses.base = base
-  statuses.basePath = '/ServiceManagerIssues'
+  issues.base = base;
+  issues.basePath = '/ServiceManagerIssues';
 
-  return statuses
+  issues.UserDefinedFields = require('./UserDefinedFields')(base);
+
+  return issues
 }
