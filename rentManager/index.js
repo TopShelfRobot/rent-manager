@@ -14,14 +14,14 @@ const Api = {
     return headers
   },
 
-  async get(uri) {
+  async get(uri, options={}) {
     const headers = this.defaultHeaders()
-    const options = {
+    options = Object.assign({}, options, {
       method: 'GET',
       uri: uri,
       headers: Object.assign(headers, {}),
       json: true,
-    }
+    });
 
     const response = await this.request(options)
     return response
@@ -29,28 +29,28 @@ const Api = {
 
   
 
-  async post(uri, data) {
+  async post(uri, data, options={}) {
     const headers = this.defaultHeaders()
-    const options = {
+    options = Object.assign({}, options, {
       method: 'POST',
       uri: uri,
       body: data,
       json: true,
       headers: Object.assign(headers, {})
-    }
+    });
 
     const response = await this.request(options)
     return response
   },
 
-  async delete(uri) {
+  async delete(uri, options={}) {
     const headers = this.defaultHeaders()
-    const options = {
+    options = Object.assign({}, options, {
       method: 'DELETE',
       uri: uri,
       headers: Object.assign(headers, {}),
       json: true,
-    }
+    });
 
     const response = await this.request(options)
     return response
@@ -67,7 +67,7 @@ const Api = {
         .type('json')
         .send((options.body) ? JSON.stringify(options.body) : '');
 
-      return response.body;
+      return (options.fullResponse) ? response : response.body;
     } catch(error) {
       if (!isResponseError(error)) throw error;
 
