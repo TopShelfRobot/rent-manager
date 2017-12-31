@@ -4,7 +4,7 @@ const validateIssue = require('./issue.schema');
 const ServiceManagerIssues = {
   /**
    */
-  find() {
+  get() {
     const query = Query({
       base: this.base, 
       url: this.basePath,
@@ -12,6 +12,7 @@ const ServiceManagerIssues = {
 
     return query;
   },
+  find() { return this.get(); },
 
   post(data) {
     const results = validateIssue(data);
@@ -32,6 +33,11 @@ const ServiceManagerIssues = {
 
   async LinkUnit(id, unitID) {
     const url = `${this.basePath}/${id}/LinkUnit?unitID=${unitID}`;
+
+    return await this.base.post(url);
+  },
+  async LinkProperty(id, propertyID) {
+    const url = `${this.basePath}/${id}/LinkProperty?propertyID=${propertyID}`;
 
     return await this.base.post(url);
   },
