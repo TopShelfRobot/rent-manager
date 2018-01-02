@@ -82,6 +82,7 @@ const Api = {
         const err = new Error(responseError.message || responseError.Message);
         err.body = responseError;
         err.status = error.status;
+        err.uri = options.uri;
         throw err;
       }
     }
