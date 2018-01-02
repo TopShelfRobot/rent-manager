@@ -41,6 +41,8 @@ const Units = {
       base: this.base, 
       url: this.basePath,
     })
+
+    return query;
     
   },
 
