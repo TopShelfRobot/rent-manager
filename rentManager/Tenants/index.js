@@ -28,6 +28,7 @@ module.exports = base => {
   tenants.Leases = require('./Leases')(base);
   tenants.UserDefinedValues = require('./UserDefinedValues')(base);
   tenants.UserDefinedFields = require('./UserDefinedFields')(base);
+  tenants.Addresses = require('./Addresses')(base);
 
   return tenants;
 }
