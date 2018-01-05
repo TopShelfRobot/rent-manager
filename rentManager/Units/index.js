@@ -92,5 +92,7 @@ module.exports = base => {
   units.base = base
   units.basePath = '/units'
 
+  units.UserDefinedValues = require('./UserDefinedValues')(units);
+
   return units
 }
