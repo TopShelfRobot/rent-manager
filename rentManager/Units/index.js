@@ -1,4 +1,4 @@
-const Query = require('./Query');
+const Query = require('../Query');
 
 const ALLOWED_EMBEDS = [
   'Addresses', 'Amenities', 'CreateUser', 'Floor',
