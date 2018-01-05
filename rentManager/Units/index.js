@@ -52,9 +52,9 @@ module.exports = base => {
   const units = Object.create(Units)
 
   units.base = base
-  units.basePath = '/units'
+  units.basePath = '/Units'
 
-  units.UserDefinedValues = require('./UserDefinedValues')(units);
+  units.UserDefinedValues = require('./UserDefinedValues')(base);
 
   return units
 }

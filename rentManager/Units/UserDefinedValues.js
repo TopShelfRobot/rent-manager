@@ -13,7 +13,7 @@ const UserDefinedValues = {
   },
 
   
-  post(data) {
+  post() {
     return Query({
       base: this.base,
       url: this.basePath,
