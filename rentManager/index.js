@@ -7,20 +7,20 @@ const isRentmanagerError = err => err && err.DeveloperMessage;
 
 const Api = {
 
-  defaultHeaders() {
-    const headers = {}
-    if (this.token) headers['X-RM12Api-ApiToken'] = this.token
+  defaultHeaders({token}) {
+    return Object.assign({}, this.tokenHeader(token || this.token))
+  },
 
-    return headers
+  tokenHeader(token) {
+    return token
+      ? {'X-RM12Api-ApiToken': token}
+      : {};
   },
 
   async get(uri, options={}) {
-    const headers = this.defaultHeaders()
     options = Object.assign({}, options, {
       method: 'GET',
       uri: uri,
-      headers: Object.assign(headers, {}),
-      json: true,
     });
 
     const response = await this.request(options)
@@ -30,13 +30,10 @@ const Api = {
   
 
   async post(uri, data, options={}) {
-    const headers = this.defaultHeaders()
     options = Object.assign({}, options, {
       method: 'POST',
       uri: uri,
       body: data,
-      json: true,
-      headers: Object.assign(headers, {})
     });
 
     const response = await this.request(options)
@@ -44,21 +41,22 @@ const Api = {
   },
 
   async delete(uri, options={}) {
-    const headers = this.defaultHeaders()
     options = Object.assign({}, options, {
       method: 'DELETE',
       uri: uri,
-      headers: Object.assign(headers, {}),
-      json: true,
     });
-
+    
     const response = await this.request(options)
     return response
   },
-
+  
   async request(options) {
+    const headers = this.defaultHeaders(options)
+
     options = Object.assign({}, options, {
-      uri: this.baseUrl + options.uri
+      uri: this.baseUrl + options.uri,
+      headers: Object.assign(headers, (options.headers || {})),
+      json: true,
     })
 
     try {
