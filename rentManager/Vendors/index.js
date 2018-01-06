@@ -21,10 +21,12 @@ const Vendors = {
 
 
 module.exports = base => {
-  const own = Object.create(Vendors);
+  const vend = Object.create(Vendors);
 
-  own.base = base;
-  own.basePath = '/Vendors';
+  vend.base = base;
+  vend.basePath = '/Vendors';
 
-  return own;
+  vend.Bills = require('./Bills')(base);
+  
+  return vend;
 }
