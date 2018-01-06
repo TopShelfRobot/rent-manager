@@ -101,7 +101,9 @@ const Api = {
 }
 
 
-module.exports = ({username, password, clientId, location}) => {
+module.exports = (options) => {
+  options = options || {};
+  const {username, password, clientId, location} = options;
   // TODO: make sure we have username, password, clientId
   
 
