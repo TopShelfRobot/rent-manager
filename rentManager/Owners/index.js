@@ -1,7 +1,7 @@
 const Query = require('../Query');
 
 const Owners = {
-  find() {
+  get() {
     const query = Query({
       base: this.base, 
       url: this.basePath,
@@ -11,6 +11,7 @@ const Owners = {
 
     return query;
   },
+  find(...args) { return this.get(...args); },
 
   getById(id) {
     const url = this.basePath + '/' + id;
