@@ -120,14 +120,15 @@ module.exports = (options) => {
 
   api.Filter         = require('./Filter');
   api.Authentication = require('./Authentication')(api);
-  api.Users = require('./Users')(api);
+  api.Users          = require('./Users')(api);
   api.Properties     = require('./Properties')(api);
   api.Units          = require('./Units')(api);
   api.ServiceManager = require('./ServiceManager')(api);
-  api.Locations       = require('./Locations')(api);
-  api.Tenants       = require('./Tenants')(api);
-  api.Leases       = require('./Leases')(api);
-  api.ChargeTypes = require('./ChargeTypes')(api);
+  api.Locations      = require('./Locations')(api);
+  api.Tenants        = require('./Tenants')(api);
+  api.Leases         = require('./Leases')(api);
+  api.ChargeTypes    = require('./ChargeTypes')(api);
+  api.Owners         = require('./Owners')(api);
 
   return api
 }
