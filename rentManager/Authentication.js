@@ -1,31 +1,33 @@
 
 const Authentication = {
 
-  async authorizeUser() {
+  async authorizeUser({username, password, location, discardToken}) {
     const url = this.basePath + '/AuthorizeUser'
 
     const req = {
-      username: this.base.username,
-      password: this.base.password,
+      username: username || this.base.username,
+      password: password || this.base.password,
+      location: location || this.base.location,
     }
-    if (this.base.location) req.locationID = this.base.location;
     
     this.base.clearToken()
 
     try {
       const token = await this.base.post(url, req)
       
-      return this.base.setToken(token)
+      if (!discardToken) this.base.setToken(token)
+
+      return token
     } catch (err) {
       console.log("Error getting token", err)
       throw err
     }
   },
 
-  async ChangeLocation(locationID) {
+  async ChangeLocation(locationID, options) {
     const url = this.basePath + '/ChangeLocation?locationID=' + locationID;
 
-    return await this.base.post(url);
+    return await this.base.post(url, options);
   },
 
 }
