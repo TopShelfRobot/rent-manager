@@ -38,6 +38,7 @@ const Query = {
   },
 
   embed(name) {
+    if (!name) return this;
     if (this.allowedEmbeds && !this.allowedEmbeds.includes(name)) throw new Error(`Embed '${name}' is not allowed`);
     
     if (isString(name)) {
@@ -52,6 +53,8 @@ const Query = {
   },
 
   field(fld) {
+    if (!fld) return this;
+    
     if (isString(fld)) {
       if (!this._fields.includes(fld)) this._fields.push(fld);
     } else if (Array.isArray(fld)) {
