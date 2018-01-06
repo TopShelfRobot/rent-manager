@@ -17,6 +17,9 @@ const Api = {
       : {};
   },
 
+  baseUrl(clientId) { return `https://${clientId}.api.rentmanager.com`;},
+  
+
   async get(uri, options={}) {
     options = Object.assign({}, options, {
       method: 'GET',
@@ -54,7 +57,7 @@ const Api = {
     const headers = this.defaultHeaders(options)
 
     options = Object.assign({}, options, {
-      uri: this.baseUrl + options.uri,
+      uri: this.baseUrl(options.clientId || this.clientId) + options.uri,
       headers: Object.assign(headers, (options.headers || {})),
       json: true,
     })
@@ -113,7 +116,6 @@ module.exports = (options) => {
   api.password = password;
   api.clientId = clientId;
   api.location = location;
-  api.baseUrl = `https://${clientId}.api.rentmanager.com`
   api.token = null
 
   api.Filter         = require('./Filter');
