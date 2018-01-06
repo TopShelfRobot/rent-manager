@@ -129,6 +129,7 @@ module.exports = (options) => {
   api.Leases         = require('./Leases')(api);
   api.ChargeTypes    = require('./ChargeTypes')(api);
   api.Owners         = require('./Owners')(api);
+  api.Vendors         = require('./Vendors')(api);
 
   return api
 }
