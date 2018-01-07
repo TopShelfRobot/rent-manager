@@ -20,6 +20,11 @@ const VendorBills = {
       base: this.base,
       url: this.basePath,
       validate: validateBill,
+      saveOptions: {
+        IgnoreBillAddPrivilege: true,
+        IgnoreBillUpdatePrivilege: true,
+        IgnorePropBankSettings: true,
+      }
     })
 
     return query;

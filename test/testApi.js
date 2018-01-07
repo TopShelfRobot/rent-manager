@@ -13,6 +13,7 @@ const username = process.env.RM_USERNAME;
 const password = process.env.RM_PASSWORD;
 const clientId = process.env.RM_CLIENTID;
 const location = process.env.RM_LOCATION;
+
 const rm = RentManagerApi({username, password, clientId, location});
 
 module.exports = rm;

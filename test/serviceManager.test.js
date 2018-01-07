@@ -1,13 +1,13 @@
 const {assert} = require('chai');
 const format = require('date-fns/format')
-const validateIssue = require('../rentManager/ServiceManager/issue.schema');
+const validateIssue = require('../rentManager/ServiceManager/Issues/issue.schema');
 
 
 const rm = require('./testApi');
 
 describe("ServiceManager", () => {
   describe("Schema", () => {
-    it.only("validates an empty due date", () => {
+    it("validates an empty due date", () => {
       const res = validateIssue({
         DueDate: '',
         Title: ''

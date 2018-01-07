@@ -1,8 +1,27 @@
 const Joi = require('joi');
 
+const billDetailSchema = Joi.object({
+  // "BillDetailID": Joi.number(),
+  // "BillID": 2,
+  "PostDate":        Joi.date().iso().empty(''),
+  "PropertyID":      Joi.number().required(),
+  "UnitID":          Joi.number(),
+  "Is1099":          Joi.boolean(),
+  "Amount":          Joi.number().required(),
+  "AmountAllocated": Joi.number(),
+  "GLAccountID":     Joi.number().required(),
+  "Comment":         Joi.string(),
+  "SortOrder":       Joi.number(),
+  "CreateDate":      Joi.date().iso().empty(''),
+  "CreateUserID":    Joi.number(),
+  "UpdateDate":      Joi.date().iso().empty(''),
+  "UpdateUserID":    Joi.number()
+});
+
 const billsSchema = Joi.object({
-  "PostDate":             Joi.date().iso().empty(''),
-  "DueDate":              Joi.date().iso().empty(''),
+  "TransactionDate":      Joi.date().iso().empty('').required(),
+  "PostDate":             Joi.date().iso().empty('').required(),
+  "DueDate":              Joi.date().iso().empty('').required(),
   "AmountAllocated":      Joi.number(),
   "IsFullyAllocated":     Joi.boolean(),
   "TermID":               Joi.number(),
@@ -18,7 +37,7 @@ const billsSchema = Joi.object({
   "OwnerApprovalUserID":  Joi.number(),
   "ReversalDate":         Joi.date().iso().empty(''),
   "IsXIBill":             Joi.boolean(),
-  "BillDetails":          Joi.array(),
+  "BillDetails":          Joi.array().items(billDetailSchema).required(),
   "Attachments":          Joi.array(),
   "ID":                   Joi.number(),
   "AccountID":            Joi.number(),
@@ -26,7 +45,6 @@ const billsSchema = Joi.object({
   "Reference":            Joi.string(),
   "Comment":              Joi.string(),
   "Amount":               Joi.number(),
-  "TransactionDate":      Joi.date().iso().empty(''),
   "CreateDate":           Joi.date().iso().empty(''),
   "CreateUserID":         Joi.number(),
   "UpdateDate":           Joi.date().iso().empty(''),

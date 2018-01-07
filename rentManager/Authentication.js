@@ -1,13 +1,15 @@
 
 const Authentication = {
 
-  async authorizeUser({username, password, location, discardToken}) {
+  async authorizeUser(options) {
+    options = options || {};
+    const {username, password, location, discardToken} = options;
     const url = this.basePath + '/AuthorizeUser'
 
     const req = {
-      username: username || this.base.username,
-      password: password || this.base.password,
-      location: location || this.base.location,
+      Username: username || this.base.username,
+      Password: password || this.base.password,
+      LocationID: location || this.base.location,
     }
     
     this.base.clearToken()

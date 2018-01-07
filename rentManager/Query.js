@@ -66,6 +66,11 @@ const Query = {
     return this;
   },
 
+  saveOption(name, val) {
+    this._saveOptions[name] = !!val;
+    return this;
+  },
+
   pageSize(size) {
     this._pageSize = size;
     return this;
@@ -124,6 +129,11 @@ const Query = {
       qs.push(`fields=${this._fields.join(',')}`)
     }
 
+    const saveOptions = Object.keys(this._saveOptions).map(key => `${key},${this._saveOptions[key]}`);
+    if (saveOptions.length) {
+      qs.push(`SaveOptions=${saveOptions.join(';')}`);
+    }
+
     if (this._pageSize) qs.push(`pageSize=${this._pageSize}`)
     if (this._pageNumber) qs.push(`pageNumber=${this._pageNumber}`)
 
@@ -174,9 +184,11 @@ module.exports = (options) => {
     _fields: [],
     _filters: [],
     _embeds: [],
+    _saveOptions: options.saveOptions || {},
     _params: {},
     _data: null,
     _options: {},
+    
   };
   
   options = pick(options, Object.keys(defaults));

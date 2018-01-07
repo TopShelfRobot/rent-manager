@@ -3,7 +3,7 @@ const {assert} = require('chai');
 const rm = require('./testApi');
 
 
-describe.only("Tenants", () => {
+describe("Tenants", () => {
   before(async () => {
     await rm.Authentication.authorizeUser();
   })
