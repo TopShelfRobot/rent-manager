@@ -1,6 +1,6 @@
-const Query = require('./Query');
+const Query = require('../Query');
 
-const Users = {
+const CurrentUser = {
   /**
   
    */
@@ -18,10 +18,10 @@ const Users = {
 }
 
 module.exports = base => {
-  const users = Object.create(Users)
+  const cu = Object.create(CurrentUser)
 
-  users.base = base
-  users.basePath = '/Users'
+  cu.base = base
+  cu.basePath = '/Users/CurrentUser'
 
-  return users
+  return cu
 }

@@ -20,6 +20,7 @@ describe.only("Vendor", () => {
         PostDate: (new Date()).toISOString(),
         DueDate: (new Date()).toISOString(),
         Comment: 'This is a comment',
+        VendorID: 1,
         BillDetails: [
           {
             Amount: 123,
