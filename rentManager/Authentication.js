@@ -26,6 +26,11 @@ const Authentication = {
     }
   },
 
+  async authorizeToken(token) {
+    const url = this.basePath + '/AuthorizeToken?token=' + token;
+    return this.base.post(url)
+  },
+
   async ChangeLocation(locationID, options) {
     const url = this.basePath + '/ChangeLocation?locationID=' + locationID;
 
