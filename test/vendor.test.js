@@ -3,7 +3,7 @@ const {assert} = require('chai');
 const rm = require('./testApi');
 
 
-describe.only("Vendor", () => {
+describe("Vendor", () => {
   before(async () => {
     await rm.Authentication.authorizeUser();
   })
@@ -14,7 +14,7 @@ describe.only("Vendor", () => {
       assert.isAtLeast(bills.length, 1);
     })
 
-    it.only("creates a bill for a vendor", async () => {
+    it("creates a bill for a vendor", async () => {
       const bill = {
         TransactionDate: (new Date()).toISOString(),
         PostDate: (new Date()).toISOString(),

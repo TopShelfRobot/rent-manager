@@ -7,7 +7,7 @@ const isRentmanagerError = err => err && err.DeveloperMessage;
 
 const Api = {
 
-  defaultHeaders({token}) {
+  defaultHeaders({token} = {}) {
     return Object.assign({}, this.tokenHeader(token || this.token))
   },
 

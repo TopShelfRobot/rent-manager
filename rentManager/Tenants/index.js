@@ -17,7 +17,21 @@ const Tenants = {
     return Query({base: this.base, url});
   },
 
-  // UploadUserDefinedValueAttachment()
+  UploadUserDefinedValueAttachment(tenantID, udfID, filename, data) {
+    const url = this.base.baseUrl(this.base.clientId) + `${this.basePath}/${tenantID}/UploadUserDefinedValueAttachment`;
+    const headers = this.base.defaultHeaders();
+
+    const udfModel = {
+      UserDefinedFieldID: udfID,
+      parentID: tenantID,
+    }
+
+    return this.base.http
+      .post(url)
+      .set(headers)
+      .attach('file', filename)
+      .field('udf', JSON.stringify(udfModel));
+  }
 }
 
 
