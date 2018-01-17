@@ -118,6 +118,8 @@ module.exports = (options) => {
   api.location = location;
   api.token = null
 
+  api.http = request;
+
   api.Filter         = require('./Filter');
   api.Authentication = require('./Authentication')(api);
   api.Users          = require('./Users')(api);

@@ -16,6 +16,8 @@ const Tenants = {
     const url = this.basePath + '/' + id;
     return Query({base: this.base, url});
   },
+
+  // UploadUserDefinedValueAttachment()
 }
 
 
