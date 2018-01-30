@@ -1,3 +1,4 @@
+const path = require('path');
 const Query = require('../Query');
 
 const ALLOWED_EMBEDS = [
