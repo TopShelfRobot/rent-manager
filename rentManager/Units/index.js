@@ -56,7 +56,7 @@ const Units = {
       url: path.join(this.basePath, String(unitID), linkPath)
     })
 
-    return query.exec();
+    return query.data(unitAmenityIDs).exec();
   },
 
 }
