@@ -42,7 +42,20 @@ const Units = {
     })
 
     return query;
-    
+  },
+
+  LinkAmenities(unitID, unitAmenityIDs) { return this.LinkUnlinkAmenities(true, unitID, unitAmenityIDs); },
+  UnLinkAmenities(unitID, unitAmenityIDs) { return this.LinkUnlinkAmenities(false, unitID, unitAmenityIDs); },
+  LinkUnlinkAmenities(link, unitID, unitAmenityIDs) {
+    unitAmenityIDs = (Array.isArray(unitAmenityIDs)) ? unitAmenityIDs : [unitAmenityIDs];
+    const linkPath = (link) ? 'LinkAmenities' : 'UnLinkAmenities';
+    const query = Query({
+      method: 'post',
+      base: this.base,
+      url: path.join(this.basePath, unitID, linkPath)
+    })
+
+    return query.exec();
   },
 
 }
