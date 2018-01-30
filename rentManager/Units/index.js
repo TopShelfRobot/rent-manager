@@ -53,7 +53,7 @@ const Units = {
     const query = Query({
       method: 'post',
       base: this.base,
-      url: path.join(this.basePath, unitID, linkPath)
+      url: path.join(this.basePath, String(unitID), linkPath)
     })
 
     return query.exec();
