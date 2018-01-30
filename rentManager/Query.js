@@ -107,9 +107,11 @@ const Query = {
     }
 
 
-    switch(this.method) {
+    switch(this.method.toLowerCase()) {
       case 'post':
         return this.base.post(url, this._data, this._options);
+      case 'delete':
+        return this.base.delete(url, this._data, this._options);
       default: 
         return this.base.get(url, this._options);
     }

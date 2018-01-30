@@ -43,10 +43,11 @@ const Api = {
     return response
   },
 
-  async delete(uri, options={}) {
+  async delete(uri, data, options={}) {
     options = Object.assign({}, options, {
       method: 'DELETE',
       uri: uri,
+      body: data,
     });
     
     const response = await this.request(options)
