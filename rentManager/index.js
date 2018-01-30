@@ -133,6 +133,7 @@ module.exports = (options) => {
   api.Owners         = require('./Owners')(api);
   api.Vendors        = require('./Vendors')(api);
   api.GLAccounts     = require('./GLAccounts')(api);
+  api.Amenities      = require('./Amenities')(api);
 
   return api
 }
