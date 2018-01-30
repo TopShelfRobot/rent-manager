@@ -50,8 +50,9 @@ const Units = {
   LinkUnlinkAmenities(link, unitID, unitAmenityIDs) {
     unitAmenityIDs = (Array.isArray(unitAmenityIDs)) ? unitAmenityIDs : [unitAmenityIDs];
     const linkPath = (link) ? 'LinkAmenities' : 'UnLinkAmenities';
+    const method = (link) ? 'POST' : 'DELETE';
     const query = Query({
-      method: 'post',
+      method: method,
       base: this.base,
       url: path.join(this.basePath, String(unitID), linkPath)
     })
