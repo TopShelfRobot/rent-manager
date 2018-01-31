@@ -158,8 +158,11 @@ const Query = {
     if (isNil(val)) throw new Error (`Expected non null/undefined for 'value`)
   
     if (isDate(val)) val = format(val);
+    val = (Array.isArray(val))
+      ? `(${val.map(v => encodeURIComponent(v)).join(',')})`
+      : encodeURIComponent(val);
     
-    return [prop, op, encodeURIComponent(val)].join(',');
+    return [prop, op, val].join(',');
   }
 }
 
