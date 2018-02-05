@@ -126,6 +126,7 @@ module.exports = (options) => {
   api.Users          = require('./Users')(api);
   api.Properties     = require('./Properties')(api);
   api.Units          = require('./Units')(api);
+  api.UnitTypes      = require('./UnitTypes')(api);
   api.ServiceManager = require('./ServiceManager')(api);
   api.Locations      = require('./Locations')(api);
   api.Tenants        = require('./Tenants')(api);
