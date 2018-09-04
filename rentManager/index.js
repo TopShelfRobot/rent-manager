@@ -1,86 +1,82 @@
 // const rp = require('request-promise')
-const request = require('superagent');
-const debug = require('debug')('base');
+const request = require("superagent");
+const debug = require("debug")("base");
 
 const isResponseError = err => err && err.response && err.response.body;
 const isRentmanagerError = err => err && err.DeveloperMessage;
 
 const Api = {
-
-  defaultHeaders({token} = {}) {
-    return Object.assign({}, this.tokenHeader(token || this.token))
+  defaultHeaders({ token } = {}) {
+    return Object.assign({}, this.tokenHeader(token || this.token));
   },
 
   tokenHeader(token) {
-    return token
-      ? {'X-RM12Api-ApiToken': token}
-      : {};
+    return token ? { "X-RM12Api-ApiToken": token } : {};
   },
 
-  baseUrl(clientId) { return `https://${clientId}.api.rentmanager.com`;},
-  
+  baseUrl(clientId) {
+    return `https://${clientId}.api.rentmanager.com`;
+  },
 
-  async get(uri, options={}) {
+  async get(uri, options = {}) {
     options = Object.assign({}, options, {
-      method: 'GET',
-      uri: uri,
+      method: "GET",
+      uri: uri
     });
 
-    const response = await this.request(options)
-    return response
+    const response = await this.request(options);
+    return response;
   },
 
-  
-
-  async post(uri, data, options={}) {
+  async post(uri, data, options = {}) {
     options = Object.assign({}, options, {
-      method: 'POST',
+      method: "POST",
       uri: uri,
-      body: data,
+      body: data
     });
 
-    const response = await this.request(options)
-    return response
+    const response = await this.request(options);
+    return response;
   },
 
-  async delete(uri, data, options={}) {
+  async delete(uri, data, options = {}) {
     options = Object.assign({}, options, {
-      method: 'DELETE',
+      method: "DELETE",
       uri: uri,
-      body: data,
+      body: data
     });
-    
-    const response = await this.request(options)
-    return response
+
+    const response = await this.request(options);
+    return response;
   },
-  
+
   async request(options) {
-    const headers = this.defaultHeaders(options)
+    const headers = this.defaultHeaders(options);
 
     options = Object.assign({}, options, {
       uri: this.baseUrl(options.clientId || this.clientId) + options.uri,
-      headers: Object.assign(headers, (options.headers || {})),
-      json: true,
-    })
+      headers: Object.assign(headers, options.headers || {}),
+      json: true
+    });
 
     try {
       const response = await request(options.method, options.uri)
         .set(options.headers)
-        .type('json')
-        .send((options.body) ? JSON.stringify(options.body) : '');
+        .type("json")
+        .send(options.body ? JSON.stringify(options.body) : "");
 
-      return (options.fullResponse) ? response : response.body;
-    } catch(error) {
+      return options.fullResponse ? response : response.body;
+    } catch (error) {
       if (!isResponseError(error)) throw error;
 
       const responseError = error.response.body;
       if (isRentmanagerError(responseError)) {
-        const err = new Error(responseError.DeveloperMessage)
+        const err = new Error(responseError.DeveloperMessage);
         err.status = error.status;
         err.original = responseError;
         err.uri = options.uri;
-        throw err
-      } else  {
+        throw err;
+      } else {
         const err = new Error(responseError.message || responseError.Message);
         err.body = responseError;
         err.status = error.status;
@@ -90,52 +86,58 @@ const Api = {
     }
   },
 
+  getToken() {
+    return this.token;
+  },
+  setToken(token) {
+    return (this.token = token);
+  },
+  clearToken() {
+    return this.setToken();
+  },
 
+  getCredentials() {
+    return this.credentials;
+  },
+  getLocation() {
+    return this.location;
+  },
+  setLocation(location) {
+    this.location = location;
+  }
+};
 
-  getToken() { return this.token },
-  setToken(token) { return this.token = token },
-  clearToken() { return this.setToken() },
-
-  getCredentials() { return this.credentials },
-  getLocation() { return this.location; },
-  setLocation(location) { this.location = location; },
-
-
-
-}
-
-
-module.exports = (options) => {
+module.exports = options => {
   options = options || {};
-  const {username, password, clientId, location} = options;
+  const { username, password, clientId, location } = options;
   // TODO: make sure we have username, password, clientId
-  
 
-  const api = Object.create(Api)
+  const api = Object.create(Api);
   api.credentials = { username, password };
   api.username = username;
   api.password = password;
   api.clientId = clientId;
   api.location = location;
-  api.token = null
+  api.token = null;
 
   api.http = request;
 
-  api.Filter         = require('./Filter');
-  api.Authentication = require('./Authentication')(api);
-  api.Users          = require('./Users')(api);
-  api.Properties     = require('./Properties')(api);
-  api.Units          = require('./Units')(api);
-  api.UnitTypes      = require('./UnitTypes')(api);
-  api.ServiceManager = require('./ServiceManager')(api);
-  api.Locations      = require('./Locations')(api);
-  api.Tenants        = require('./Tenants')(api);
-  api.Leases         = require('./Leases')(api);
-  api.ChargeTypes    = require('./ChargeTypes')(api);
-  api.Owners         = require('./Owners')(api);
-  api.Vendors        = require('./Vendors')(api);
-  api.GLAccounts     = require('./GLAccounts')(api);
-  api.Amenities      = require('./Amenities')(api);
+  api.Filter = require("./Filter");
+  api.Authentication = require("./Authentication")(api);
+  api.Users = require("./Users")(api);
+  api.Properties = require("./Properties")(api);
+  api.Units = require("./Units")(api);
+  api.UnitTypes = require("./UnitTypes")(api);
+  api.ServiceManager = require("./ServiceManager")(api);
+  api.Locations = require("./Locations")(api);
+  api.Tenants = require("./Tenants")(api);
+  api.Leases = require("./Leases")(api);
+  api.ChargeTypes = require("./ChargeTypes")(api);
+  api.Owners = require("./Owners")(api);
+  api.Vendors = require("./Vendors")(api);
+  api.GLAccounts = require("./GLAccounts")(api);
+  api.Amenities = require("./Amenities")(api);
+  api.PropertyGroups = require("./PropertyGroups")(api);
 
-  return api
-}
+  return api;
+};
